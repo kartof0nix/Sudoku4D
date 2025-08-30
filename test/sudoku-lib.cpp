@@ -47,3 +47,22 @@ TEST(SudokuLib, Base2) {
     EXPECT_TRUE(game.set(2, 2, 3)); // Duplicate erased
 
 }
+
+TEST(SudokuLib, Base3) {
+    sudokuGame game(3);
+    EXPECT_EQ(game.getBase(), 3);
+    EXPECT_EQ(game.getSize(), 9);
+
+    EXPECT_TRUE(game.set(0, 0, 1));
+    EXPECT_TRUE(game.set(0, 1, 2));
+    EXPECT_TRUE(game.set(0, 2, 3));
+
+    EXPECT_FALSE(game.set(0, 3, 1)); // Duplicate in row
+    EXPECT_TRUE(game.set(0, 3, 4));
+    
+    EXPECT_FALSE(game.set(1, 0, 1)); // Duplicate in column
+    EXPECT_TRUE(game.set(1, 0, 5));
+
+    EXPECT_FALSE(game.set(2, 2, 2));
+    EXPECT_TRUE(game.set(2, 2, 6));
+}

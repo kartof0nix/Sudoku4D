@@ -8,7 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(DEBUG "Enable debugging" OFF)
 option(BUILD_GUI "Build GUI application" ON)
 
-cmake_policy(SET CMP0135 NEW)
 
 # Compile options
 if (DEBUG)
@@ -41,4 +40,5 @@ target_link_libraries(sudoku-tests gtest_main sudoku-lib)
 include(GoogleTest)
 
 gtest_discover_tests(sudoku-tests)
+
 

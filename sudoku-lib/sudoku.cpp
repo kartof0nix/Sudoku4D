@@ -1,8 +1,8 @@
 #include "sudoku.hpp"
 
 bool subgroup::set(uint index, uint value, bool dry_run) {
-    if (index < 0 || index >= size()) throw out_of_range("Index out of range");
-    if (value < 0 || value > size()) throw out_of_range("Value out of range");
+    if (index >= size()) throw out_of_range("Index out of range");
+    if (value > size()) throw out_of_range("Value out of range");
     if (used[value]) return false; // Value already used
     if (dry_run)
         return true; // If dry_run
@@ -13,7 +13,7 @@ bool subgroup::set(uint index, uint value, bool dry_run) {
 } 
 
 uint subgroup::get(uint index) const {
-    if (index < 0 || index >= size()) throw out_of_range("Index out of range");
+    if (index >= size()) throw out_of_range("Index out of range");
     return (*this)[index];
 }
 
@@ -23,12 +23,12 @@ sudokuGame::sudokuGame(const uint &Base) : base(Base), size(Base * Base), rows(s
 }
 
 bool sudokuGame::set(uint row, uint col, uint value) {
-    if (row < 0 || row >= size || col < 0 || col >= size) throw out_of_range("Row or column out of range");
-    if (value < 0 || value > size) throw out_of_range("Value out of range");
+    if (row >= size ||  col >= size) throw out_of_range("Row or column out of range");
+    if (value > size) throw out_of_range("Value out of range");
     uint squareGroup = getSquareGroup(row, col), squareIndex = getSquareIndex(row, col);
     
     subgroup *groups[3] = {&rows[row], &cols[col], &squares[squareGroup]};
-    int id[3] = {col, row, squareIndex};
+    uint id[3] = {col, row, squareIndex};
     
     for (int i = 0; i < 3; ++i) {
         auto group = groups[i];
